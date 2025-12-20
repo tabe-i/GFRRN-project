@@ -796,6 +796,28 @@
   </div>
 </footer>
 
+<style>
+/* 覆盖Bulma的响应式列布局 - 适配所有移动设备 */
+@media screen and (max-width: 1024px) {  /* 改为1024px，覆盖平板和手机 */
+  .results-carousel .columns.is-multiline {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  
+  .results-carousel .columns.is-multiline .column {
+    flex: 0 0 33.333%;
+    min-width: 33.333%;
+    padding: 0.5rem;
+  }
+  
+  .results-carousel .columns.is-multiline img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+    
 <!-- Statcounter tracking code -->
   
 <!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
