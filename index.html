@@ -619,534 +619,201 @@
   </script>
 </section>
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>轮播图展示优化</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #3273dc;
-            --secondary-color: #23d160;
-        }
-        
-        .results-carousel {
-            position: relative;
-            padding: 0 2.5rem;
-        }
-        
-        .carousel-navigation {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3rem;
-            height: 3rem;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-navigation:hover {
-            background-color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        .carousel-prev {
-            left: 0;
-        }
-        
-        .carousel-next {
-            right: 0;
-        }
-        
-        .carousel-navigation i {
-            color: #363636;
-            font-size: 1.2rem;
-        }
-        
-        .carousel-indicators {
-            display: flex;
-            justify-content: center;
-            margin-top: 1.5rem;
-        }
-        
-        .carousel-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: #dbdbdb;
-            margin: 0 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .carousel-indicator.active {
-            background-color: var(--primary-color);
-            transform: scale(1.2);
-        }
-        
-        .item {
-            display: none;
-        }
-        
-        .item.active {
-            display: block;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .section-title .tag {
-            font-size: 1.1rem;
-            padding: 0.5rem 1.2rem;
-            border-radius: 4px;
-        }
-        
-        .image-column {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .image-container {
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .image-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-        
-        .image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        
-        .image-label {
-            font-size: 0.85rem;
-            color: #666;
-            margin-top: 0.5rem;
-            text-align: center;
-        }
-        
-        .hero.is-small .hero-body {
-            padding: 2rem 1.5rem;
-        }
-        
-        .page-counter {
-            text-align: center;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
-        @media (max-width: 768px) {
-            .results-carousel {
-                padding: 0 2rem;
-            }
-            
-            .carousel-navigation {
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-            
-            .section-title .tag {
-                font-size: 1rem;
-                padding: 0.4rem 1rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <section class="hero is-small">
-        <div class="hero-body">
-            <div class="container">
-                <h2 class="title is-4 has-text-centered mb-5">效果展示</h2>
-                <div id="results-carousel" class="carousel results-carousel">
-                    <!-- 第一页 -->
-                    <div class="item active">
-                        <!-- Input行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-info is-medium">
-                                <i class="fas fa-arrow-right mr-2"></i>输入 (Input)
-                            </span>
-                        </div>
-                        
-                        <!-- 上面三张Input图片 -->
-                        <div class="columns is-multiline mb-6">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1-2_31_in.png" alt="Input 1" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 1-2_31</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1_143_in.png" alt="Input 2" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 1_143</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/3_1_in.png" alt="Input 3" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 3_1</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Output行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-success is-medium">
-                                <i class="fas fa-check mr-2"></i>输出 (Output)
-                            </span>
-                        </div>
-                        
-                        <!-- 下面三张Output图片 -->
-                        <div class="columns is-multiline">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1-2_31_out.png" alt="Output 1" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 1-2_31</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1_143_out.png" alt="Output 2" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 1_143</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/3_1_out.png" alt="Output 3" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 3_1</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 第二页 -->
-                    <div class="item">
-                        <!-- Input行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-info is-medium">
-                                <i class="fas fa-arrow-right mr-2"></i>输入 (Input)
-                            </span>
-                        </div>
-                        
-                        <!-- 上面三张Input图片 -->
-                        <div class="columns is-multiline mb-6">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/47_in.png" alt="Input 4" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 47</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/86_in.png" alt="Input 5" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 86</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/107_in.png" alt="Input 6" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 107</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Output行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-success is-medium">
-                                <i class="fas fa-check mr-2"></i>输出 (Output)
-                            </span>
-                        </div>
-                        
-                        <!-- 下面三张Output图片 -->
-                        <div class="columns is-multiline">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/47_out.png" alt="Output 4" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 47</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/86_out.png" alt="Output 5" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 86</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/107_out.png" alt="Output 6" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 107</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 第三页 -->
-                    <div class="item">
-                        <!-- Input行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-info is-medium">
-                                <i class="fas fa-arrow-right mr-2"></i>输入 (Input)
-                            </span>
-                        </div>
-                        
-                        <!-- 上面三张Input图片 -->
-                        <div class="columns is-multiline mb-6">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1_in.png" alt="Input 7" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 1</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/165_in.png" alt="Input 8" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 165</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/196_in.png" alt="Input 9" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 196</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Output行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-success is-medium">
-                                <i class="fas fa-check mr-2"></i>输出 (Output)
-                            </span>
-                        </div>
-                        
-                        <!-- 下面三张Output图片 -->
-                        <div class="columns is-multiline">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/1_out.png" alt="Output 7" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 1</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/165_out.png" alt="Output 8" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 165</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/196_out.png" alt="Output 9" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 196</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 第四页 -->
-                    <div class="item">
-                        <!-- Input行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-info is-medium">
-                                <i class="fas fa-arrow-right mr-2"></i>输入 (Input)
-                            </span>
-                        </div>
-                        
-                        <!-- 上面三张Input图片 -->
-                        <div class="columns is-multiline mb-6">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/138_in.png" alt="Input 10" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 138</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/43_in.png" alt="Input 11" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 43</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/46_in.png" alt="Input 12" loading="lazy"/>
-                                </div>
-                                <div class="image-label">示例 46</div>
-                            </div>
-                        </div>
-                        
-                        <!-- Output行标题 -->
-                        <div class="section-title">
-                            <span class="tag is-success is-medium">
-                                <i class="fas fa-check mr-2"></i>输出 (Output)
-                            </span>
-                        </div>
-                        
-                        <!-- 下面三张Output图片 -->
-                        <div class="columns is-multiline">
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/138_out.png" alt="Output 10" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 138</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/43_out.png" alt="Output 11" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 43</div>
-                            </div>
-                            <div class="column is-one-third image-column">
-                                <div class="image-container">
-                                    <img src="static/images/46_out.png" alt="Output 12" loading="lazy"/>
-                                </div>
-                                <div class="image-label">结果 46</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 导航按钮 -->
-                <div class="carousel-navigation carousel-prev" id="carousel-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="carousel-navigation carousel-next" id="carousel-next">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                
-                <!-- 指示器 -->
-                <div class="carousel-indicators" id="carousel-indicators">
-                    <!-- 动态生成指示器 -->
-                </div>
-                
-                <!-- 页面计数器 -->
-                <div class="page-counter" id="page-counter">第 1 页，共 4 页</div>
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <!-- 第一页 -->
+        <div class="item">
+          <!-- 上面三张Input图片 -->
+          <div class="columns is-multiline mb-5">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/1-2_31_in.png" alt="Input 1" loading="lazy"/>
             </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/1_143_in.png" alt="Input 2" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/3_1_in.png" alt="Input 3" loading="lazy"/>
+            </div>
+          </div>
+          
+          <!-- 下面三张Output图片 -->
+          <div class="columns is-multiline">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/1-2_31_out.png" alt="Output 1" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/1_143_out.png" alt="Output 2" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/3_1_out.png" alt="Output 3" loading="lazy"/>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const carousel = document.getElementById('results-carousel');
-            const items = carousel.querySelectorAll('.item');
-            const prevBtn = document.getElementById('carousel-prev');
-            const nextBtn = document.getElementById('carousel-next');
-            const indicatorsContainer = document.getElementById('carousel-indicators');
-            const pageCounter = document.getElementById('page-counter');
-            
-            let currentIndex = 0;
-            const totalItems = items.length;
-            
-            // 创建指示器
-            for (let i = 0; i < totalItems; i++) {
-                const indicator = document.createElement('div');
-                indicator.classList.add('carousel-indicator');
-                if (i === 0) indicator.classList.add('active');
-                
-                indicator.addEventListener('click', () => {
-                    goToSlide(i);
-                });
-                
-                indicatorsContainer.appendChild(indicator);
-            }
-            
-            // 更新页面显示
-            function updateCarousel() {
-                // 隐藏所有项目
-                items.forEach(item => item.classList.remove('active'));
-                
-                // 显示当前项目
-                items[currentIndex].classList.add('active');
-                
-                // 更新指示器
-                const indicators = document.querySelectorAll('.carousel-indicator');
-                indicators.forEach((indicator, index) => {
-                    if (index === currentIndex) {
-                        indicator.classList.add('active');
-                    } else {
-                        indicator.classList.remove('active');
-                    }
-                });
-                
-                // 更新页面计数器
-                pageCounter.textContent = `第 ${currentIndex + 1} 页，共 ${totalItems} 页`;
-            }
-            
-            // 跳转到指定幻灯片
-            function goToSlide(index) {
-                if (index < 0) {
-                    currentIndex = totalItems - 1;
-                } else if (index >= totalItems) {
-                    currentIndex = 0;
-                } else {
-                    currentIndex = index;
-                }
-                updateCarousel();
-            }
-            
-            // 下一张
-            function nextSlide() {
-                goToSlide(currentIndex + 1);
-            }
-            
-            // 上一张
-            function prevSlide() {
-                goToSlide(currentIndex - 1);
-            }
-            
-            // 事件监听
-            prevBtn.addEventListener('click', prevSlide);
-            nextBtn.addEventListener('click', nextSlide);
-            
-            // 键盘导航
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    prevSlide();
-                } else if (e.key === 'ArrowRight') {
-                    nextSlide();
-                }
-            });
-            
-            // 自动轮播（可选，注释掉则禁用）
-            // let autoSlideInterval = setInterval(nextSlide, 5000);
-            
-            // 鼠标悬停时暂停自动轮播
-            // carousel.addEventListener('mouseenter', () => {
-            //     clearInterval(autoSlideInterval);
-            // });
-            
-            // carousel.addEventListener('mouseleave', () => {
-            //     autoSlideInterval = setInterval(nextSlide, 5000);
-            // });
-            
-            // 初始化
-            updateCarousel();
-        });
-    </script>
-</body>
-</html>
-
+        
+        <!-- 第二页 -->
+        <div class="item">
+          <!-- 上面三张Input图片 -->
+          <div class="columns is-multiline mb-5">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/47_in.png" alt="Input 4" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/86_in.png" alt="Input 5" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/107_in.png" alt="Input 6" loading="lazy"/>
+            </div>
+          </div>
+          
+          <!-- 下面三张Output图片 -->
+          <div class="columns is-multiline">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/47_out.png" alt="Output 4" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/86_out.png" alt="Output 5" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/107_out.png" alt="Output 6" loading="lazy"/>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第三页 -->
+        <div class="item">
+          <!-- 上面三张Input图片 -->
+          <div class="columns is-multiline mb-5">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/1_in.png" alt="Input 7" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/165_in.png" alt="Input 8" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/196_in.png" alt="Input 9" loading="lazy"/>
+            </div>
+          </div>
+          
+          <!-- 下面三张Output图片 -->
+          <div class="columns is-multiline">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/1_out.png" alt="Output 7" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/165_out.png" alt="Output 8" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/196_out.png" alt="Output 9" loading="lazy"/>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 第四页 -->
+        <div class="item">
+          <!-- 上面三张Input图片 -->
+          <div class="columns is-multiline mb-5">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/138_in.png" alt="Input 10" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/43_in.png" alt="Input 11" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-info is-medium">Input</span>
+              </div>
+              <img src="static/images/46_in.png" alt="Input 12" loading="lazy"/>
+            </div>
+          </div>
+          
+          <!-- 下面三张Output图片 -->
+          <div class="columns is-multiline">
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/138_out.png" alt="Output 10" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/43_out.png" alt="Output 11" loading="lazy"/>
+            </div>
+            <div class="column is-one-third">
+              <div class="has-text-centered mb-2">
+                <span class="tag is-success is-medium">Output</span>
+              </div>
+              <img src="static/images/46_out.png" alt="Output 12" loading="lazy"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!--BibTex citation -->
   <section class="section" id="BibTeX">
