@@ -802,5 +802,27 @@
 
     <!-- End of Statcounter Code -->
 
+<style>
+/* 覆盖Bulma的响应式列布局 */
+@media screen and (max-width: 768px) {
+  .results-carousel .columns.is-multiline {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  
+  .results-carousel .columns.is-multiline .column {
+    flex: 0 0 33.333%;
+    min-width: 33.333%;
+    padding: 0.5rem;
+  }
+  
+  .results-carousel .columns.is-multiline img {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+    
   </body>
   </html>
