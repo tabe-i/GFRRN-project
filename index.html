@@ -186,54 +186,7 @@
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- More Works Dropdown -->
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="works-list">
-        <!-- TODO: Replace with your lab's related works -->
-        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
-          <div class="work-info">
-            <!-- TODO: Replace with actual paper title -->
-            <h5>Paper Title 1</h5>
-            <!-- TODO: Replace with brief description -->
-            <p>Brief description of the work and its main contribution.</p>
-            <!-- TODO: Replace with venue and year -->
-            <span class="work-venue">Conference/Journal 2024</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <!-- TODO: Add more related works or remove extra items -->
-        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 2</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 3</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-
+  
   <main id="main-content">
   <section class="hero">
     <div class="hero-body">
@@ -259,38 +212,27 @@
 
                   <div class="is-size-5 publication-authors">
                     <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Zhejiang University, Huanjiang Lab, The Chinese University of Hong Kong<br>Arxiv 2025</span>
+                    <span class="author-block">Zhejiang University, Huanjiang Lab, The Chinese University of Hong Kong<br>CVPR 2026</span>
                     <!-- TODO: Remove this line if no equal contribution -->
                     <span class="eql-cntrb"><small><br><sup>†</sup>Indicates Corresponding Author</small></span>
                   </div>
 
                   <div class="column has-text-centered">
                     <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
+                      <!-- TODO: Update with your arXiv paper ID -->
+                        <span class="link-block">
+                          <a href="https://arxiv.org/abs/2602.22695" target="_blank"
+                          class="external-link button is-normal is-rounded is-dark">
+                          <span class="icon">
+                            <i class="ai ai-arxiv"></i>
+                          </span>
+                          <span>arXiv</span>
+                        </a>
                       </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
 
                   <!-- TODO: Replace with your GitHub repository URL -->
                   <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
+                    <a href="https://github.com/tabe-i/GFRRN" target="_blank"
                     class="external-link button is-normal is-rounded is-dark">
                     <span class="icon">
                       <i class="fab fa-github"></i>
@@ -298,17 +240,17 @@
                     <span>Code</span>
                   </a>
                 </span>
-
-                <!-- TODO: Update with your arXiv paper ID -->
+                      
+                <!-- TODO: Replace with your Hugging face URL -->
                 <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
+                  <a href="https://huggingface.co/datasets/tabe-i/Gap-Free" target="_blank"
                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                    <i class="ai ai-arxiv"></i>
+                    <i class="fab fa-hugging-face"></i>
                   </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
+                  <span>Hugging Face</span>
+                  </a>
+                </span>
             </div>
           </div>
         </div>
@@ -363,7 +305,6 @@
           <p>Drag the slider to compare the input image with our result.</p>
         </div>
 
-        <!-- 第一个对比滑块 -->
         <div class="comparison-wrapper">
           <div class="comparison-container" id="compare-container-1">
             <img src="static/images/88_out.png" alt="Processed Result 1">
@@ -380,7 +321,6 @@
           </div>
         </div>
 
-        <!-- 第四个对比滑块 -->
         <div class="comparison-wrapper">
           <div class="comparison-container" id="compare-container-4">
             <img src="static/images/10_out.png" alt="Processed Result 4">
@@ -397,7 +337,6 @@
           </div>
         </div>
 
-        <!-- 第二个对比滑块 -->
         <div class="comparison-wrapper">
           <div class="comparison-container" id="compare-container-2">
             <img src="static/images/17_out.png" alt="Processed Result 2">
@@ -414,7 +353,6 @@
           </div>
         </div>
 
-        <!-- 第三个对比滑块 -->
         <div class="comparison-wrapper">
          
           <div class="comparison-container" id="compare-container-3">
@@ -529,22 +467,18 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化所有对比滑块
       initComparisonSlider(1);
       initComparisonSlider(2);
       initComparisonSlider(3);
       initComparisonSlider(4);
       
-      // 监听窗口大小变化，同步所有滑块
       window.addEventListener('resize', function() {
         syncAllImageWidths();
       });
       
-      // 初始同步图片宽度
       syncAllImageWidths();
     });
     
-    // 初始化单个对比滑块
     function initComparisonSlider(sliderId) {
       const container = document.getElementById(`compare-container-${sliderId}`);
       const overlay = document.getElementById(`img-overlay-${sliderId}`);
@@ -552,30 +486,24 @@
       const overlayImg = overlay.querySelector('img');
       let isDragging = false;
       
-      // 同步图片宽度
       function syncImageWidth() {
         const width = container.offsetWidth;
         overlayImg.style.width = `${width}px`;
       }
       
-      // 更新滑块位置
       function updateSlider(x) {
         const rect = container.getBoundingClientRect();
         let position = x - rect.left;
         
-        // 边界检查
         if (position < 0) position = 0;
         if (position > rect.width) position = rect.width;
         
-        // 计算百分比
         const percentage = (position / rect.width) * 100;
         
-        // 更新样式
         overlay.style.width = `${percentage}%`;
         handle.style.left = `${percentage}%`;
       }
       
-      // 鼠标事件
       container.addEventListener('mousedown', () => isDragging = true);
       window.addEventListener('mouseup', () => isDragging = false);
       
@@ -584,12 +512,10 @@
         updateSlider(e.clientX);
       });
       
-      // 点击跳转
       container.addEventListener('click', (e) => {
         updateSlider(e.clientX);
       });
       
-      // 触摸事件（移动端支持）
       container.addEventListener('touchstart', () => isDragging = true);
       window.addEventListener('touchend', () => isDragging = false);
       
@@ -598,11 +524,9 @@
         updateSlider(e.touches[0].clientX);
       });
       
-      // 返回同步函数，供全局调用
       return syncImageWidth;
     }
     
-    // 同步所有滑块的图片宽度
     function syncAllImageWidths() {
       for (let i = 1; i <= 4; i++) {
         const container = document.getElementById(`compare-container-${i}`);
@@ -622,7 +546,6 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <!-- 添加大标题和说明 -->
       <div class="columns is-centered has-text-centered">
         <div class="column is-four-fifths">
           <h2 class="title is-3">Visual Effects on Open Datasets</h2>
@@ -634,11 +557,8 @@
         </div>
       </div>
       
-      <!-- 原有的轮播图代码 -->
       <div id="results-carousel" class="carousel results-carousel">
-        <!-- 第一页 -->
         <div class="item">
-          <!-- 上面三张图片 -->
           <div class="columns is-multiline mb-5">
             <div class="column is-one-third">
               <img src="static/images/1-2_31_in.png" alt="Input 1" loading="lazy"/>
@@ -650,8 +570,7 @@
               <img src="static/images/3_1_in.png" alt="Input 3" loading="lazy"/>
             </div>
           </div>
-          
-          <!-- 下面三张图片 -->
+
           <div class="columns is-multiline">
             <div class="column is-one-third">
               <img src="static/images/1-2_31_out.png" alt="Output 1" loading="lazy"/>
@@ -665,9 +584,7 @@
           </div>
         </div>
         
-        <!-- 第二页 -->
         <div class="item">
-          <!-- 上面三张图片 -->
           <div class="columns is-multiline mb-5">
             <div class="column is-one-third">
               <img src="static/images/47_in.png" alt="Input 4" loading="lazy"/>
@@ -680,7 +597,6 @@
             </div>
           </div>
           
-          <!-- 下面三张图片 -->
           <div class="columns is-multiline">
             <div class="column is-one-third">
               <img src="static/images/47_out.png" alt="Output 4" loading="lazy"/>
@@ -694,9 +610,7 @@
           </div>
         </div>
         
-        <!-- 第三页 -->
         <div class="item">
-          <!-- 上面三张图片 -->
           <div class="columns is-multiline mb-5">
             <div class="column is-one-third">
               <img src="static/images/1_in.png" alt="Input 7" loading="lazy"/>
@@ -709,7 +623,6 @@
             </div>
           </div>
           
-          <!-- 下面三张图片 -->
           <div class="columns is-multiline">
             <div class="column is-one-third">
               <img src="static/images/1_out.png" alt="Output 7" loading="lazy"/>
@@ -723,9 +636,7 @@
           </div>
         </div>
         
-        <!-- 第四页 -->
         <div class="item">
-          <!-- 上面三张图片 -->
           <div class="columns is-multiline mb-5">
             <div class="column is-one-third">
               <img src="static/images/138_in.png" alt="Input 10" loading="lazy"/>
@@ -738,7 +649,6 @@
             </div>
           </div>
           
-          <!-- 下面三张图片 -->
           <div class="columns is-multiline">
             <div class="column is-one-third">
               <img src="static/images/138_out.png" alt="Output 10" loading="lazy"/>
@@ -757,8 +667,7 @@
 </section>
 
 <style>
-/* 覆盖Bulma的响应式列布局 - 适配所有移动设备 */
-@media screen and (max-width: 1024px) {  /* 改为1024px，覆盖平板和手机 */
+@media screen and (max-width: 1024px) { 
   .results-carousel .columns.is-multiline {
     display: flex;
     flex-wrap: nowrap;
@@ -788,12 +697,14 @@
           <span class="copy-text">Copy</span>
         </button>
       </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
-  journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
+      <pre id="bibtex-code"><code>@article{chen2026gfrrn,
+      title={GFRRN: Explore the Gaps in Single Image Reflection Removal}, 
+      author={Yu Chen and Zewei He and Xingyu Liu and Zixuan Chen and Zheming Lu},
+      year={2026},
+      eprint={2602.22695},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2602.22695}, 
 }</code></pre>
     </div>
 </section>
